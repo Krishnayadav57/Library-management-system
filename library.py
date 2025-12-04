@@ -43,7 +43,7 @@ def load_books():
             for line in f:
                 line = line.strip()
                 if line:
-                    book_id, title, author, quantity = line.split()
+                    book_id, title, author, quantity = line.split(',')
 
                     book = {
                         'id' : book_id,
@@ -86,7 +86,102 @@ def register_user(users_dict):
         print("Registration successful!")
         return True
     
-users_dict = load_user()
+# users_dict = load_user()
 # print(users_dict)
-register_user(users_dict)
+# register_user(users_dict)
+# login_user(load_user)
 ##register_user(users_dict,user)
+
+
+def login_user(users_dict):
+    print("\n-------Login User-------")
+    username = input("Enter username :- ").strip()
+    password = input("Enter password :- ").strip()
+
+    if username in users_dict and users_dict[username] == password:
+        print(f"Welcome! {username.capitalize()}")
+        return username
+    else:
+        print(f"Invalid username or password!!!")
+        return None
+    
+# login_user(users_dict)
+
+##NOw book operation is start
+## Main menu Function
+
+def main_menu():
+    '''Display main menu option'''
+    print("="*55)
+    print("\nLibrary Management system")
+    print("="*55)
+    print("1. ADD book")
+    print("2. View All Book")
+    print("3. search book")
+    print("4. Issue Book")
+    print("5. Return Book")
+    print("6. Logout")
+    print("="*55)
+
+# main_menu()
+
+## ADD BOOK 
+def add_book(books_list, book_ids):
+    '''Add a new book to the library'''
+    print("\n-------ADD NEW BOOK------")
+    book_id = input("Enter the book id :- ").strip()
+
+    if book_id in book_ids:
+        print("Book already exists!!")
+        return
+    
+    title = input("Enter the book title :- ").strip()
+    author = input("Enter the book author :- ").strip()
+    quantity = int(input("Enter the book quantity :- ").strip())
+
+    new_book = {
+        'id': book_id,
+        'title': title,
+        'author': author,
+        'quantity': quantity
+    }
+
+    books_list.append(new_book)
+    book_ids.add(book_id)
+
+    with open("books.txt", "a") as f:
+        f.write(f"{book_id},{title},{author},{quantity}\n")
+
+    print("Book added sucesseful")
+
+book_dict = load_books()
+# books_ids = get_existing_books_id(book_dict)
+# print(book_dict)
+# print(books_ids)
+# add_book(book_dict,books_ids)
+
+def view_books(books_list):
+    '''Display all the books in the library'''
+    print("\n-----All book in library")
+    if not books_list:
+        print("No books found!! in library")
+        return
+    for book in books_list:
+        print(f"{book['id']} | {book['title']} | {book['author']} | {book['quantity']}")
+
+# book_dict = load_books()
+# view_books(book_dict)
+
+# Load everything
+users_dict = load_user()
+books_list = load_books()
+book_ids = get_existing_books_id(books_list)
+
+# # Example: Login
+login_user(users_dict)
+
+# # Example: Add a book
+# add_book(books_list, book_ids)
+
+# # View books
+# view_books(books_list)
