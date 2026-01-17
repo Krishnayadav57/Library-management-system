@@ -65,7 +65,7 @@ Library-Management-System/
 
 ▶️ Running the Program
 1️⃣ Clone the repository
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/Krishnayadav57/library-management-system.git
 cd your-repo-name
 
 2️⃣ Run the script
